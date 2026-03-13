@@ -1,0 +1,15 @@
+# Dockerfile for Snyk
+
+FROM snyk/snyk:alpine
+
+# Copy your application files to the container
+COPY . /app
+
+# Set the working directory
+WORKDIR /app
+
+# Install any dependencies (if needed)
+# RUN npm install (or other commands specific to your application)
+
+# Run Snyk to scan for vulnerabilities
+CMD ["snyk", "test"]
