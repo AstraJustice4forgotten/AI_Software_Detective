@@ -1,0 +1,31 @@
+FROM ubuntu:22.04
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    openjdk-17-jdk \
+    wget \
+    unzip \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download and install Ghidra
+RUN wget https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.4_build/ghidra_10.4_PUBLIC_20230711.zip && \
+    unzip ghidra_10.4_PUBLIC_20230711.zip -d /opt && \
+    rm ghidra_10.4_PUBLIC_20230711.zip
+
+# Set environment variables
+ENV GHIDRA_HOME=/opt/ghidra_10.4_PUBLIC
+ENV PATH=$GHIDRA_HOME/bin:$PATH
+
+# Create analysis directory
+RUN mkdir -p /analysis
+
+WORKDIR /analysis
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8001/health || exit 1
+
+# Default command
+CMD ["analyzeHeadless", "/analysis", "project", "-import", "/input"]
