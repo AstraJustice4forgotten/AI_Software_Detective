@@ -1,0 +1,1 @@
+fastapi==0.95.2\nuvicorn==0.22.0\nrequests==2.31.0\nschedule==1.2.0\nopenai==0.27.0\npython-multipart==0.0.6\naiofiles==22.1.0\npydantic==1.10.5\npython-dotenv==1.0.0\nhttpx==0.25.0\ntenacity==8.2.2\npyyaml==6.0\npsutil==5.9.5\nloguru==0.7.0\nPillow==10.0.0\nsqlalchemy==1.4.49\nalembic==1.10.5
