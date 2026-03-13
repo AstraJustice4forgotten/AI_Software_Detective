@@ -35,31 +35,26 @@ RUN wget https://ghidra-sre.org/ghidra_10.3_PUBLIC_20230726.zip -O /tmp/ghidra.z
     unzip /tmp/ghidra.zip -d /opt/ && rm /tmp/ghidra.zip
 WORKDIR /opt/ghidra_10.3_PUBLIC
 CMD ["bash"]
-
 FROM node:20-alpine
 RUN npm install -g snyk
 WORKDIR /app
 CMD ["sh"]
-
 name: AI Software Detective Auto-Deploy
-
 on:
   push:
     branches:
       - main
-
 jobs:
   build-and-run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Set up Python
+     - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
-
+          python-version:
+"3.11"
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
